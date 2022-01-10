@@ -5,7 +5,7 @@ RUN apk add --update --no-cache \
 		openssl \
 	&& rm -rf /var/cache/apk/*
 
-#EXPOSE 443
+EXPOSE 443
 
 RUN mkdir -p /var/www/html
 
