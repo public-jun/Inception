@@ -32,5 +32,4 @@ RUN mkdir -p /etc/nginx/ssl/self; \
 
 #ENTRYPOINT [ "docker-entrypoint.sh" ]
 #ENTRYPOINT /usr/sbin/nginx -g "daemon off;" -c /etc/nginx/nginx.conf
-#CMD [ "/usr/sbin/nginx", "-g", "daemon off"]
-CMD nginx -g "daemon off;"
+CMD [ "/usr/sbin/nginx", "-g", "daemon off;"]
