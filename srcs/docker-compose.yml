@@ -5,5 +5,22 @@ services:
     build: ./requirements/nginx
     image: nginx
     restart: always
+    networks:
+      - frontend
     ports:
       - "443:443"
+    volumes:
+      - ./requirements/nginx/tools/:/var/www/html/
+
+#  wordpress:
+#    build: ./requirements/wordpress
+#    image: wordpress
+#    restart: always
+#    networks:
+#      - frontend
+#    expose:
+#      - 9000
+
+networks:
+  frontend:
+    driver: bridge
