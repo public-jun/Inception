@@ -10,6 +10,7 @@ EXPOSE 443
 RUN mkdir -p /var/www/html
 
 COPY ./conf/default.conf /etc/nginx/http.d/default.conf
+#COPY ./tools/index.html /var/www/html/index.html
 
 COPY ./tools/docker-entrypoint.sh /var/tmp
 
