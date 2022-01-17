@@ -10,7 +10,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./requirements/nginx/tools/:/var/www/html/
+      - ./requirements/tools/wp/:/var/www/html/
 
 #  wordpress:
 #    build: ./requirements/wordpress
