@@ -7,19 +7,23 @@ services:
     restart: always
     networks:
       - frontend
+    depends_on:
+      - wordpress
     ports:
       - "443:443"
     volumes:
       - ./requirements/tools/wp/:/var/www/html/
 
-#  wordpress:
-#    build: ./requirements/wordpress
-#    image: wordpress
-#    restart: always
-#    networks:
-#      - frontend
-#    expose:
-#      - 9000
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    restart: always
+    networks:
+      - frontend
+    expose:
+      - 9000
+    volumes:
+      - ./requirements/tools/wp/:/var/www/html/
 
 networks:
   frontend:
