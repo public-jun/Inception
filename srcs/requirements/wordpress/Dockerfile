@@ -6,4 +6,9 @@ RUN apk add --update --no-cache \
 		php7-fpm \
 	&& rm -rf /var/cache/apk/*
 
+COPY ./tools/php-fpm.d/www.conf /etc/php7/php-fpm.d/www.conf
+
+RUN addgroup -S nginx && adduser -S nginx -G nginx
+
+CMD [ "/usr/sbin/php-fpm7", "--nodaemonize"]
 
