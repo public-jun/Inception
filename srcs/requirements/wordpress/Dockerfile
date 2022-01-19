@@ -8,6 +8,10 @@ RUN apk add --update --no-cache \
 
 COPY ./tools/php-fpm.d/www.conf /etc/php7/php-fpm.d/www.conf
 
+WORKDIR /tmp
+
+RUN wget https://ja.wordpress.org/latest-ja.tar.gz
+
 RUN addgroup -S nginx && adduser -S nginx -G nginx
 
 CMD [ "/usr/sbin/php-fpm7", "--nodaemonize"]
