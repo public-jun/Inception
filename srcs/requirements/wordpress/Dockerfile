@@ -4,6 +4,7 @@ FROM alpine:3.15
 RUN apk add --update --no-cache \
 		php7 \
 		php7-fpm \
+		php7-json \
 		php7-curl \
 		php7-dom \
 		php7-exif \
@@ -26,6 +27,7 @@ RUN wget https://ja.wordpress.org/latest-ja.tar.gz; \
 	tar -zxf latest-ja.tar.gz; \
 	mkdir -p /var/www/html/wordpress; \
 	cp -r wordpress/* /var/www/html/wordpress/; \
+	#wp-cli
 	addgroup -S nginx && adduser -S nginx -G nginx
 
 CMD [ "/usr/sbin/php-fpm7", "--nodaemonize"]
