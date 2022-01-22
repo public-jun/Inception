@@ -18,4 +18,4 @@ RUN mv /var/tmp/docker-entrypoint.sh /usr/local/bin; \
 EXPOSE 3306
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD ["/bin/sh"]
+CMD [ "/usr/bin/mysqld", "--user=mysql", "--console", "--skip-name-resolve", "--skip-networking=0" ]
