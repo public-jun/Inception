@@ -32,8 +32,14 @@ SET PASSWORD FOR 'root'@'localhost'=PASSWORD('${MYSQL_ROOT_PASSWORD}') ;
 DROP DATABASE IF EXISTS test ;
 FLUSH PRIVILEGES ;
 EOF
-cat $tfile
-rm -f $tfile
+	/usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < $tfile
+	rm -f $tfile
+
+	echo
+	echo 'MySQL init process done. Ready for start up.'
+	echo
+
+	echo "$@"
 fi
 
 exec $@
