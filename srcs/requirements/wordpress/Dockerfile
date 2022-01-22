@@ -21,14 +21,18 @@ RUN apk add --update --no-cache \
 
 COPY ./tools/php-fpm.d/www.conf /etc/php7/php-fpm.d/www.conf
 
-WORKDIR /tmp
 
-RUN wget https://ja.wordpress.org/latest-ja.tar.gz; \
-	tar -zxf latest-ja.tar.gz; \
-	mkdir -p /var/www/html/wordpress; \
-	cp -r wordpress/* /var/www/html/wordpress/; \
-	#wp-cli
-	addgroup -S nginx && adduser -S nginx -G nginx
+RUN addgroup -S nginx \
+	&& adduser -S nginx -G nginx; \
+	[ ! -d /var/www/html ]; \
+	mkdir -p /var/www/html/; \
+	chmod 777 /var/www/html
+
+WORKDIR /var/www/html
+
+RUN wget https://wordpress.org/wordpress-5.8.3.tar.gz \
+	&& tar -zxf wordpress-5.8.3.tar.gz \
+	&& rm -f wordpress-5.8.3.tar.gz
 
 CMD [ "/usr/sbin/php-fpm7", "--nodaemonize"]
 

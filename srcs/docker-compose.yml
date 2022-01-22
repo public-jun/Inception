@@ -9,10 +9,11 @@ services:
       - frontend
     depends_on:
       - wordpress
+      - mariadb
     ports:
       - "443:443"
     volumes:
-      - ./requirements/tools/wp/:/var/www/html/
+      - wordpress_volume:/var/www/html/
 
   wordpress:
     build: ./requirements/wordpress
@@ -20,11 +21,42 @@ services:
     restart: always
     networks:
       - frontend
+    depends_on:
+      - mariadb
     expose:
       - 9000
     volumes:
-      - ./requirements/tools/wp/:/var/www/html/
+      - wordpress_volume:/var/www/html/
+    environment:
+      # wordpress database
+      - WORDPRESS_DB_HOST=$WORDPRESS_DB_HOST
+      - WORDPRESS_DB_USER=$WORDPRESS_DB_USER
+      - WORDPRESS_DB_PASSWORD=$WORDPRESS_DB_PASSWORD
+      - WORDPRESS_DB_NAME=$WORDPRESS_DB_NAME
+
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb
+    restart: always
+    networks:
+      - frontend
+    expose:
+      - 3306
+    volumes:
+    - ./requirements/tools/db:/var/lib/mysql
+    environment:
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
 
 networks:
   frontend:
     driver: bridge
+
+volumes:
+  wordpress_volume:
+    driver_opts:
+      type: none
+      device: ./requirements/tools/wp/
+      o: bind
