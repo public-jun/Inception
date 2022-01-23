@@ -17,6 +17,8 @@ RUN apk add --update --no-cache \
 		php7-xml \
 		php7-zip \
 		php7-pdo_mysql \
+		php7-phar \
+		mysql-client \
 	&& rm -rf /var/cache/apk/*
 
 COPY ./tools/php-fpm.d/www.conf /etc/php7/php-fpm.d/www.conf
@@ -25,14 +27,21 @@ COPY ./tools/php-fpm.d/www.conf /etc/php7/php-fpm.d/www.conf
 RUN addgroup -S nginx \
 	&& adduser -S nginx -G nginx; \
 	[ ! -d /var/www/html ]; \
-	mkdir -p /var/www/html/; \
-	chmod 777 /var/www/html
+	mkdir -p /var/www/html/
 
-WORKDIR /var/www/html
+WORKDIR /tmp
 
-RUN wget https://wordpress.org/wordpress-5.8.3.tar.gz \
-	&& tar -zxf wordpress-5.8.3.tar.gz \
-	&& rm -f wordpress-5.8.3.tar.gz
+RUN set -eux; \
+	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar; \
+	chmod +x wp-cli.phar; \
+	mv wp-cli.phar /usr/local/bin/wp; \
+	wp --allow-root --version
 
+COPY ./tools/docker-entrypoint.sh /var/tmp
+
+RUN mv /var/tmp/docker-entrypoint.sh /usr/local/bin; \
+	chmod +x /usr/local/bin/docker-entrypoint.sh;
+
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 CMD [ "/usr/sbin/php-fpm7", "--nodaemonize"]
 
