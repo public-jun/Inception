@@ -1,8 +1,8 @@
 #!/bin/sh
 
-wp core download --force --path=/var/www/html/wordpress --locale=ja
+wp core download --force --path=/var/www/html/ --locale=ja
 echo "wordpress download"
-chmod -R 777 /var/www/html/wordpress/wp-content
+chmod -R 777 /var/www/html/wp-content
 
 until mysql -h"${WORDPRESS_DB_HOST}" -u"${WORDPRESS_DB_USER}" -p"${WORDPRESS_DB_PASSWORD}" &> /dev/null; do
 	>&2 echo -n "."
@@ -11,7 +11,7 @@ done
 >&2 echo "Database is up"
 
 
-wp config create --force --dbname=db --dbuser=user --dbpass=pass --dbhost=mariadb --path=/var/www/html/wordpress
+wp config create --force --dbname=db --dbuser=user --dbpass=pass --dbhost=mariadb --path=/var/www/html
 echo "config ceate"
 
 wp core install \
@@ -20,14 +20,14 @@ wp core install \
 	--admin_user=wordpress \
 	--admin_password=wordpress \
 	--admin_email=wp@example.com \
-	--path=/var/www/html/wordpress \
+	--path=/var/www/html \
 	--allow-root
 echo "admin user wordpress "
 
 wp user create editor editor@example.com \
 	--user_pass=editor \
 	--role=editor \
-	--path=/var/www/html/wordpress \
+	--path=/var/www/html \
 	--allow-root
 
 
