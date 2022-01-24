@@ -3,6 +3,16 @@ FROM alpine:3.15
 # php php-fpm build
 RUN apk add --update --no-cache \
 		php7 \
+		php7-bcmath \
+		php7-iconv \
+		php7-intl \
+		php7-mcrypt \
+		php7-simplexml \
+		php7-sodium \
+		php7-xmlreader \
+		php7-ssh2 \
+		php7-ftp \
+		php7-sockets \
 		php7-fpm \
 		php7-json \
 		php7-curl \
@@ -16,7 +26,7 @@ RUN apk add --update --no-cache \
 		php7-gd \
 		php7-xml \
 		php7-zip \
-		php7-pdo_mysql \
+		php7-mysqli \
 		php7-phar \
 		mysql-client \
 	&& rm -rf /var/cache/apk/*
