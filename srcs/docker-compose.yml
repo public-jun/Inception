@@ -14,6 +14,9 @@ services:
       - "443:443"
     volumes:
       - wordpress_volume:/var/www/html/
+    environment:
+      # domain info
+      - DOMAIN_NAME=$DOMAIN_NAME
 
   wordpress:
     build: ./requirements/wordpress
