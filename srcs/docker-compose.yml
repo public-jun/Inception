@@ -75,5 +75,5 @@ volumes:
   wordpress_volume:
     driver_opts:
       type: none
-      device: ./requirements/tools/wp/
+      device: ./requirements/tools/wp
       o: bind

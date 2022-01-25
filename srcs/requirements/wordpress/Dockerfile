@@ -33,11 +33,10 @@ RUN apk add --update --no-cache \
 
 COPY ./tools/php-fpm.d/www.conf /etc/php7/php-fpm.d/www.conf
 
-
-RUN addgroup -S nginx \
-	&& adduser -S nginx -G nginx; \
+RUN set -eux \
 	[ ! -d /var/www/html ]; \
-	mkdir -p /var/www/html/
+	mkdir -p /var/www/html; \
+	chmod 777 /var/www/html
 
 WORKDIR /tmp
 
