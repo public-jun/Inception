@@ -17,8 +17,6 @@ openssl x509 -req \
 
 echo ">> DOCKER-ENTRYPOINT: GERNRATING SSL CERT...DONE"
 echo ">> DOCKER-ENTRYPOINT: EXECUTING CMD"
-echo ">> DOCKER-ENTRYPOINT: CHOWN DOCUMETN ROOT"
 
-chown -R nginx:nginx /var/www/html
 
 exec "$@"
