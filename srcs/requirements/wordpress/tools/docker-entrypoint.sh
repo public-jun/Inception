@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wp core download --force --path=/var/www/html/ --locale=ja
+wp core download --force --path="${WORDPRESS_PATH}" --locale=ja
 echo "wordpress download"
 chmod -R 777 /var/www/html/wp-content
 
@@ -11,35 +11,26 @@ done
 >&2 echo "Database is up"
 
 
-wp config create --force --dbname=db --dbuser=user --dbpass=pass --dbhost=mariadb --path=/var/www/html
+wp config create --force --dbname="${WORDPRESS_DB_NAME}" --dbuser="${WORDPRESS_DB_USER}" --dbpass="${WORDPRESS_DB_PASSWORD}" --dbhost="${WORDPRESS_DB_HOST}" --path="${WORDPRESS_PATH}"
 echo "config ceate"
 
 wp core install \
-	--url=https://jnakahod.42.fr \
-	--title=inception \
-	--admin_user=wordpress \
-	--admin_password=wordpress \
-	--admin_email=wp@example.com \
-	--path=/var/www/html \
+	--url=https://"${DOMAIN_NAME}" \
+	--title="${TITLE}" \
+	--admin_user="${WORDPRESS_ADMIN_USER}" \
+	--admin_password="${WORDPRESS_ADMIN_PASSWORD}" \
+	--admin_email="${WORDPRESS_ADMIN_EMAIL}" \
+	--path="${WORDPRESS_PATH}" \
 	--allow-root
 echo "admin user wordpress "
 
-wp user create editor editor@example.com \
-	--user_pass=editor \
-	--role=editor \
-	--path=/var/www/html \
+wp user create "${WORDPRESS_EDITOR_USER}" \
+	"${WORDPRESS_EDITOR_EMAIL}" \
+	--user_pass="${WORDPRESS_EDITOR_PASSWORD}" \
+	--role="${WORDPRESS_EDITOR_ROLE}" \
+	--path="${WORDPRESS_PATH}" \
 	--allow-root
 
-
-# if [ -d "/var/www/html/wordpress" ]; then
-# 	echo "[i] wordpress already present, skipping creation"
-# else
-# 	echo "[i] wordpress not found, creating....."
-# 	wget https://wordpress.org/wordpress-5.8.3.tar.gz
-# 	tar -zxf wordpress-5.8.3.tar.gz
-# 	cp -r wordpress /var/www/html/
-# 	rm -f wordpress-5.8.3.tar.gz
-# fi
 chown -R nginx:nginx /var/www/html
 
 exec $@
