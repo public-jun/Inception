@@ -13,7 +13,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress_volume:/var/www/html/
+      - wordpress_volume:/var/www/html/wordpress/
     environment:
       # domain info
       - DOMAIN_NAME=$DOMAIN_NAME
@@ -29,7 +29,7 @@ services:
     expose:
       - 9000
     volumes:
-      - wordpress_volume:/var/www/html/
+      - wordpress_volume:/var/www/html/wordpress/
     environment:
       # domain info
       - DOMAIN_NAME=$DOMAIN_NAME
@@ -60,7 +60,7 @@ services:
     expose:
       - 3306
     volumes:
-    - ./requirements/tools/db:/var/lib/mysql
+    - mariadb_volume:/var/lib/mysql
     environment:
       - MYSQL_USER=$MYSQL_USER
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
@@ -75,5 +75,10 @@ volumes:
   wordpress_volume:
     driver_opts:
       type: none
-      device: ./requirements/tools/wp
+      device: /home/jnakahod/data/wp
+      o: bind
+  mariadb_volume:
+    driver_opts:
+      type: none
+      device: /home/jnakahod/data/db
       o: bind
