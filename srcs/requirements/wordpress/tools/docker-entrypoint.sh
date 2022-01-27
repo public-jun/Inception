@@ -22,12 +22,6 @@ if [ "$1" = '/usr/sbin/php-fpm7' ]; then
 			--path="${WORDPRESS_PATH}" \
 			--locale=ja \
 			--version=5.8.3
-		if [ $? -eq 0 ]; then
-			chown -R www-data:www-data /var/www/html
-			chmod -R 777 ${WORDPRESS_PATH}/wp-content
-		else
-			exit 1
-		fi
 		echo >&2 "Complete! WordPress has been successfully copied to ${WORDPRESS_PATH}"
 
 		echo "Waiting for database"
@@ -73,6 +67,9 @@ ADMIN_PASSWORD:xxx"
 		echo "New user info
 LOGIN:${WORDPRESS_EDITOR_USER}
 ROLE:${WORDPRESS_EDITOR_ROLE}"
+
+	chown -R www-data:www-data "${WORDPRESS_PATH}"
+	chmod 600 "${WORDPRESS_PATH}"/wp-config.php
 
 	fi
 fi
