@@ -30,7 +30,7 @@ clean:	down
 .PHONY: fclean
 fclean:
 	$(DC) down --rmi all --volumes --remove-orphans
-	sudo rm -rf ./srcs/requirements/tools/wp/* ./srcs/requirements/tools/db/*
+	sudo rm -rf /home/jnakahod/data/wp/* /home/jnakahod/data/db/*
 
 .PHONY: re
 re:	fclean all

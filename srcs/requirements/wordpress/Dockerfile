@@ -1,5 +1,9 @@
 FROM alpine:3.15
 
+RUN set -ux; \
+	addgroup -g 82 -S www-data; \
+	adduser -u 82 -D -S -G www-data www-data
+
 # php php-fpm build
 RUN apk add --update --no-cache \
 		php7 \
@@ -34,9 +38,8 @@ RUN apk add --update --no-cache \
 COPY ./tools/php-fpm.d/www.conf /etc/php7/php-fpm.d/www.conf
 
 RUN set -eux \
-	[ ! -d /var/www/html ]; \
-	mkdir -p /var/www/html; \
-	chmod 777 /var/www/html
+	[ ! -d /var/www/html/wordpress ]; \
+	mkdir -p /var/www/html/wordpress
 
 WORKDIR /tmp
 
