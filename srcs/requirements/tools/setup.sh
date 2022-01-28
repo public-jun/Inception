@@ -1,7 +1,8 @@
 #!/bin/sh
+set -ux;
 
 # set DOMAIN_NAME
-DOMAIN_NAME=`grep "DOMAIN_NAME=" ../../.env | sed -e "s/^.*=//"`
+DOMAIN_NAME=`grep "DOMAIN_NAME=" ./srcs/.env | sed -e "s/^.*=//"`
 HOSTS_PATH=/etc/hosts
 
 if [ "${#DOMAIN_NAME}" -eq 0 ]; then

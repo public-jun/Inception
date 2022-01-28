@@ -1,4 +1,7 @@
 srcs := ./srcs
+tools_path = $(srcs)/requirements/tools
+make_domain_sh = setup.sh
+delete_domain_sh = delete_domain.sh
 
 DC := cd $(srcs) && docker-compose
 
@@ -11,7 +14,11 @@ wp_volume_path = $(volume_path)/$(wp_volume_name)
 db_volume_path = $(volume_path)/$(db_volume_name)
 
 .PHONY:	all
-all: volume upd
+all: setup volume upd
+
+.PHONY: setup
+setup:
+	sudo bash $(tools_path)/$(make_domain_sh)
 
 .PHONY: volume
 volume:
@@ -30,6 +37,16 @@ upd:
 down:
 	$(DC) down -v
 
+.PHONY: clean
+clean:	down
+
+.PHONY: fclean
+fclean:
+	$(DC) down --rmi all --volumes --remove-orphans
+	sudo rm -rf $(volume_path)
+	sudo bash $(tools_path)/$(delete_domain_sh)
+
+# utils rule
 .PHONY: logs
 logs:
 	$(DC) logs
@@ -38,13 +55,6 @@ logs:
 ps:
 	$(DC) ps
 
-.PHONY: clean
-clean:	down
-
-.PHONY: fclean
-fclean:
-	$(DC) down --rmi all --volumes --remove-orphans
-	sudo rm -rf $(volume_path)
 
 .PHONY: re
 re:	fclean all
