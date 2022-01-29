@@ -18,5 +18,4 @@ openssl x509 -req \
 echo ">> DOCKER-ENTRYPOINT: GERNRATING SSL CERT...DONE"
 echo ">> DOCKER-ENTRYPOINT: EXECUTING CMD"
 
-
 exec "$@"
