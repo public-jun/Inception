@@ -1,6 +1,5 @@
-# Inception
+# Inception (42Tokyo project)
 docker-composeを用いて`nginx` + `WordPress(php-fpm)` + `mariadb` の3つのコンテナを接続し、WordPressの実行環境を作成する。
-
 
 ## 実行環境
 ```bash
@@ -72,11 +71,16 @@ $ git clone https://github.com/public-jun/Inception.git
 # 起動コマンド
 $ make
 ```
-`/home`配下に新しいディレクトリを作成し`/etc/hosts`に新しいhostnameを追加するため、`管理者権限`が必要です
+`/home`配下に新しいディレクトリを作成し`/etc/hosts`に新しいhostnameを追加するため、`管理者権限`が必要です。
 ```bash
 # 停止コマンド
 $ make clean
 ```
+
+1. 起動後、https://jnakahod.42.frにアクセスするとWordPressのデフォルトページが表示されます。
+2. http://jnakahod.42.fr/wp-adminにアクセスするとログイン画面が現れます。
+
+## その他コマンド
 ```bash
 # 停止 && ボリューム削除
 $ make fclean
