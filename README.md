@@ -77,8 +77,10 @@ $ make
 $ make clean
 ```
 
-1. 起動後、https://jnakahod.42.frにアクセスするとWordPressのデフォルトページが表示されます。
-2. http://jnakahod.42.fr/wp-adminにアクセスするとログイン画面が現れます。
+1. 起動後、https://jnakahod.42.fr にアクセスするとWordPressのデフォルトページが表示されます。
+2. http://jnakahod.42.fr/wp-admin にアクセスするとログイン画面が現れます。
+3. 管理者ユーザーの場合、`./srcs/.env`のユーザー名`WORDPRESS_ADMIN_USER`とパスワード`WORDPRESS_ADMIN_PASSWORD`を参照してください。
+4. 一般ユーザーの場合、`./srcs/.env`のユーザー名`WORDPRESS_EDITOR_USER`とパスワード`WORDPRESS_EDITOR_PASSWORD`を参照してください。
 
 ## その他コマンド
 ```bash
